@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration status="WARN">
+	<properties>
+		<property name="log_home">logs</property>
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} %M - %msg%n" />
+		</Console>
+		<File name="logfile" filename="${log_home}/test.log" append="false">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} %M - %msg%n" />
+		</File>
+		<RollingFile name="rollingLogfile" filename="${log_home}/rollingtest.log" 
+		filePattern="${log_home}/$${date:yyyy-MM}/test-%d{yyyy-MM-dd}-%i.log" >
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %M - %msg%n" />
+			<SizeBasedTriggeringPolicy size="20MB"/>
+			<DefaultRolloverStrategy max="30"/>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="logfile" />
+			<AppenderRef ref="rollingLogfile" />
+		</Root>
+	</Loggers>
+</Configuration>
